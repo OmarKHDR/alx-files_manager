@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+chmod u+x ./*
+git add .
+git commit -m "updating $1"
+git push
