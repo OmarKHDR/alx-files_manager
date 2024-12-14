@@ -4,6 +4,7 @@ import { MongoClient } from 'mongodb';
 class DBClient {
   constructor(host = env.DB_HOST || 'localhost',
     port = env.DB_PORT || 27017, database = env.DB_DATABASE || 'files_manager') {
+    this.database = database;
     const uri = `mongodb://${host}:${port}`;
     this.client = new MongoClient(uri);
     this.isConnected = false;
@@ -24,7 +25,16 @@ class DBClient {
   }
 
   async nbUsers() {
-    
+    const users = this.client.db(this.database).collection('users');
+    const userNum = await users.countDocuments({});
+    return userNum;
+  }
+
+
+  async nbFiles() {
+    const file = this.client.db(this.database).collection('files');
+    const filesNum = await file.countDocuments({});
+    return filesNum;
   }
 }
 
