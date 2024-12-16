@@ -1,5 +1,5 @@
 import dbClient from '../utils/db';
-import sha1 from 'sha1'
+import crypto from 'crypto';
 
 export default class UsersController {
   static async postNew(req, res) {
@@ -19,6 +19,12 @@ export default class UsersController {
       res.status(400).json({ error: 'already exists' });
       return;
     }
-    collection.insertOne({ email, password: sha1(password) });
+    collection.insertOne({ email, password: UsersController.sha1(password) });
+  }
+
+  static sha1(data) {
+    const hash = crypto.createHash('sha1');
+    hash.update(data);
+    return hash.digest('hex');
   }
 }

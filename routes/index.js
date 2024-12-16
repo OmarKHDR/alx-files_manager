@@ -8,6 +8,6 @@ const routes = Router();
 
 routes.get('/status', AppController.getStatus);
 routes.get('/stats', AppController.getStats);
-routes.get('/users', UsersController.postNew);
+routes.post('/users', UsersController.postNew);
 
 export default routes;
