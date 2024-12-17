@@ -28,7 +28,7 @@ export default class UsersController {
       const insertId = userDb.insertedId;
       const result = await collection.findOne({ _id: ObjectId(insertId) });
       if (userDb) {
-        res.status(200).json({
+        res.status(201).json({
           _id: result._id,
           email: result.email,
         });
@@ -36,7 +36,7 @@ export default class UsersController {
     } catch (err) {
       console.log(err);
     }
-    res.end();
+    return;
   }
 
   static sha1(data) {
